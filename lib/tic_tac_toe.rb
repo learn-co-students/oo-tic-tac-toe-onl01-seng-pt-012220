@@ -20,7 +20,7 @@ class TicTacToe
     user_input.to_i - 1
   end
 
-  def move(position, player_symbol)
+  def move(position, player_symbol = "X")
     @board[position] = player_symbol
   end
 
@@ -29,12 +29,9 @@ class TicTacToe
   end
 
   def valid_move?(position)
-    if position_taken?(position) || (position < 0 || position > 8)
-      return false
-    end
-    return true
+    !position_taken?(position) && position.between?(0,8)
   end
-  
+
   def turn_count
     count = 0
     @board.each{|position|
@@ -44,22 +41,62 @@ class TicTacToe
     }
     count
   end
-  
+
   def current_player
-    (turn_count % 2 == 0)? "X" : "O" 
+    (turn_count % 2 == 0)? "X" : "O"
   end
-  
-  def turn 
+
+  def turn
     puts "Please enter 1-9:"
-    user_input_raw = gets.chomp
-    user_input = input_to_index(user_input_raw)
+    user_input = input_to_index(gets.chomp)
     if valid_move?(user_input) == true
       move(user_input, current_player)
       display_board
     else
-      #turn
-      puts "Something went wrong"
+      turn
+      #puts "Something went wrong"
+    end
+  end
+
+  def won?
+    WIN_COMBINATIONS.each{|win_combination|
+      if (((@board[win_combination[0]] == @board[win_combination[1]]) && (@board[win_combination[0]] == @board[win_combination[2]])) && @board[win_combination[0]] != " ")
+        return win_combination
+      end
+    }
+    false
+  end
+
+  def full?
+    @board.each{|box|
+      if box == " "
+        return false
+      end
+    }
+    true
+  end
+
+  def draw?
+    full? && !won?
+  end
+
+  def over?
+    won? || draw?
+  end
+
+  def winner
+     won? ? @board[won?[0]] : nil
+  end
+
+  def play
+    while over? == false
+      turn
+    end
+
+    if won?
+      puts "Congratulations #{winner}!"
+    elsif draw?
+      puts "Cat's Game!"
     end
   end
 end
-
