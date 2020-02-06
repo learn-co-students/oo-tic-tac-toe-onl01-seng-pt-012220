@@ -62,11 +62,11 @@ class TicTacToe
   end
 
   def turn
-    ans = nil
-    ans = gets
-    ans = input_to_index(ans)
-    if valid_move?(ans)
-      move(ans, current_player)
+    puts "Please enter a number (1-9):"
+    ans = gets.strip
+    index = input_to_index(ans)
+    if valid_move?(index)
+      move(index, current_player)
     else
       puts "Position taken. Please pick another."
       turn
@@ -75,17 +75,13 @@ class TicTacToe
   end
 
   def won?
-    win_ans = nil
+    win_ans = false
     win_comb = nil
-    WIN_COMBINATIONS.collect do |combination|
-
-      if @board[combination[0]] == @board[combination[1]] && @board[combination[0]] == @board[combination[2]]
+    WIN_COMBINATIONS.each do |combination|
+      if @board[combination[0]] == @board[combination[1]] && @board[combination[0]] == @board[combination[2]] && position_taken?(combination[0])
         win_ans = true
         win_comb = combination
-      else
-        win_ans = false
       end
-
     end
     win_ans
     win_comb
@@ -100,27 +96,30 @@ class TicTacToe
   end
 
   def draw?
-    full? && !won? ? true : false
+    full? && !won?
   end
 
   def over?
-    draw? || won? ? true : false
+    draw? || won?
   end
 
   def winner
-    @board[won?[0]] == " " ? nil : @board[won?[0]]
+    #@board[won?[0]] == " " ? nil : @board[won?[0]]
+    if won?
+      @board[won?[0]]
+    end
   end
 
   def play
     #play
-    continue_game = nil
+    #continue_game = nil
     until over?
       turn
     end
     if draw?
-      "Cat's Game!"
+      puts "Cat's Game!"
     elsif winner
-      "Congratulations #{winner}"
+      puts "Congratulations #{winner}!"
     end
   #  binding.pry
   end
