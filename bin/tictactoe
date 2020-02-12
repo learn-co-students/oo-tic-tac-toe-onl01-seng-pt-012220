@@ -1,3 +1,117 @@
 #!/usr/bin/env ruby
 require 'pry'
-require_relative '../lib/tic_tac_toe.rb'
+require_relative '../lib/tic_tac_toe.rb
+
+class board
+  attr_reader :board
+end
+
+game = TicTacToe
+game.play
+
+end
+
+
+def initialize
+  @board = Array.new(9," ")
+end
+
+def WIN_COMBINATIONS [[0,1,2])
+        expect(TicTacToe::WIN_COMBINATIONS).to include_array([3,4,5])
+        expect(TicTacToe::WIN_COMBINATIONS).to include_array([6,7,8])
+        expect(TicTacToe::WIN_COMBINATIONS).to include_array([0,3,6])
+        expect(TicTacToe::WIN_COMBINATIONS).to include_array([1,4,7])
+        expect(TicTacToe::WIN_COMBINATIONS).to include_array([2,5,8])
+        expect(TicTacToe::WIN_COMBINATIONS).to include_array([0,4,8])
+        expect(TicTacToe::WIN_COMBINATIONS).to include_array([6,4,2])
+end
+
+def display_board
+  @board = board
+  
+end
+
+def input__to_index(input)
+  input.to_i-1
+end
+
+def move (index, token = "x")
+  @board [index] = token
+end
+
+def position_token?(token)
+
+end
+
+def turn
+  puts ("Choose a number between 1 -9")
+  input = gets.chomp
+  input = input__to_index(gets.chomp)
+    if valid move?(index)
+    move(index, current_player)
+    display_board
+  else
+    turn
+  end
+  
+def turn.count
+  counter = 0
+  @board.each do |el|
+    if el = "X" || "O"
+      counter += 1 
+  end
+  
+def current_player
+  if its_an_even then
+  or turn_count
+  else return ("X", "O")
+end
+
+def WON?
+ winner = nil 
+ WIN_COMBINATIONS.each.do |combo|
+ binding.pry
+ combo.all{[win|binding.pry}
+end
+
+def full
+  turn_count == 9 
+end
+
+def draw?
+  full || won?
+end
+
+def over?
+  won? || draw?
+end
+
+
+def winner? 
+  binding.pry
+  won?? @board [won?[o]]:nil
+end
+
+def play 
+  take_turn_until_over?
+  if winner
+    puts "Congradulations_#{winner}?"
+  else puts "Cats Game!"
+end
+
+
+#play
+
+end
+
+
+  
+  
+
+
+
+
+
+
+
+
