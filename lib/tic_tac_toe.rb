@@ -82,30 +82,17 @@ class TicTacToe
   end
   
   def winner
-    winner = nil
-    if won?
-    won?.each do |space|
-      if @board[space] == "X"
-        winner = "X"
-      elsif @board[space] == "O"
-        winner = "O"
-      end
-    end
-    end
-    winner
+    won? ? @board[won?[0]] : nil
   end
   
   def play
-    until over?
-      turn
-    end
+    turn until over?
     
     if won?
       puts "Congratulations #{winner}!"
       elsif draw?
       puts "Cat's Game!"
     end
-    
   end
   
 end
