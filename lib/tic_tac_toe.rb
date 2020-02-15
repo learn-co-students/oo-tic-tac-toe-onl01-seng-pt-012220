@@ -36,7 +36,7 @@ class TicTacToe
     
     
   def valid_move?(index)
-    @board[index] != nil && position_taken?(index) == false ? true : false
+    index >= 0 && index <= 8 && position_taken?(index) == false ? true : false
   end
   
   def turn 
@@ -69,28 +69,60 @@ class TicTacToe
       
       
     def won?
-      x_array = []
-      o_array = []
-      @board.each do |i|
-        if i == "X"
-          x_array << i.index 
-        elsif i == "O"
-          o_array << i.index
+      winner = nil
+      WIN_COMBINATIONS.each do |combo|
+        if combo.all?  {|win| @board[win] == "X"}
+          winner = combo 
+        elsif combo.all? {|win| @board[win] == "O"}
+          winner = combo
         else
+          winner
       end
     end
-    if WIN_COMBINATIONS.include? x_array 
-      x_array
-    elsif  WIN_COMBINATIONS.include? o_array
-      o_array
+    winner 
+  end
+    
+    def full?
+      full = nil
+      if @board.all? {|i| i == "X" || i == "O"}
+          full = true
+        else
+          full = false
+        end
+      full
+    end
+      
+  def draw?
+    draw = nil
+    if full? == true && won? == nil
+      draw = true
     else
-      false 
+      draw = false
+    end
+    draw
+  end
+  
+  def over?
+    won? || draw?
+  end
+    
+  def winner
+    token = nil
+    if won? != nil
+     token = @board[won?[0]]
+     token
+   else
+ end
+ end
+ 
+ def play 
+  turn until over? 
+    if winner
+      puts "Congratulations #{winner}!"
+    else
+      puts "Cat's Game!"
   end
 end
-      
-    
-    
-  
-  
+
   
 end
